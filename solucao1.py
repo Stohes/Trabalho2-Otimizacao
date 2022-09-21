@@ -1,4 +1,4 @@
-map = [list(line.rsplit()) for line in open("casos de teste/teste2.txt")]
+map = [list(line.rsplit()) for line in open("casos de teste/teste1.txt")]
 
 size = int(map[0][0])
 start = map[size][0]
@@ -9,7 +9,7 @@ movY, movX = [-1, -1, 0], [0, 1, 1]
 maiorGold = 0
 
 
-def walk(y, x, goldAtual):  # passar o 4 parametro como string do caminho atual
+def walk(y, x, goldAtual):
     global maiorGold
 
     if not (y < 1 or x > size - 1):  # sair do mapa
@@ -22,10 +22,11 @@ def walk(y, x, goldAtual):  # passar o 4 parametro como string do caminho atual
             if y == 1 and x == size - 1:  # final
                 if novoGold > maiorGold:
                     maiorGold = novoGold
-            else: # testar o for antigo
-                walk(y - 1, x, novoGold)
-                walk(y - 1, x + 1, novoGold)
-                walk(y, x + 1, novoGold)
+            else:
+                for i in range(3):
+                    newY = y + movY[i]
+                    newX = x + movX[i]
+                    walk(newY, newX, novoGold)
 
 
 walk(size, 0, 0)

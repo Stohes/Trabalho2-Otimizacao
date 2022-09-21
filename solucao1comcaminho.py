@@ -5,7 +5,7 @@ start = map[size][0]
 end = map[1][size - 1]
 
 
-movY, movX = [-1, -1, 0], [0, 1, 1]
+movY, movX, direction = [-1, -1, 0], [0, 1, 1], [" N", " NE", " E"]
 maiorGold = 0
 melhorCaminho = ""
 
@@ -25,10 +25,11 @@ def walk(y, x, goldAtual, caminho):
                 if novoGold > maiorGold:
                     maiorGold = novoGold
                     melhorCaminho = caminho
-            else: # botar o for antigo
-                walk(y - 1, x, novoGold, caminho + " N")
-                walk(y - 1, x + 1, novoGold, caminho + " NE")
-                walk(y, x + 1, novoGold, caminho + " E")
+            else:
+                for i in range(3):
+                    newY = y + movY[i]
+                    newX = x + movX[i]
+                    walk(newY, newX, novoGold, caminho + direction[i])
 
 
 walk(size, 0, 0, "")
