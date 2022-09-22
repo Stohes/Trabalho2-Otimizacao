@@ -11,26 +11,22 @@ end = map[1][size - 1]
 movY, movX = [-1, -1, 0], [0, 1, 1]
 
 
-def walk(y, x):
-    gold = 0
-    maiorGold = 0
-
+def walk(y, x, goldAtual, mG):
+    maiorGold = mG
+    
     if not (y < 1 or x > size - 1):  # sair do mapa
         casinhaAtual = map[y][x]
 
         if casinhaAtual != "x":
-            
+            novoGold = goldAtual + int(casinhaAtual)
             for i in range(3):
                 newY = y + movY[i]
                 newX = x + movX[i]
+                maiorGold = walk(newY, newX, novoGold, maiorGold)
+                
+                if novoGold > maiorGold:
+                    maiorGold = novoGold
 
-                novoGold = walk(newY, newX)
-                if novoGold is not None:
-                    gold += novoGold
+    return maiorGold
 
-                    if gold > maiorGold:
-                        maiorGold = gold
-
-            return gold + int(casinhaAtual)
-
-print(walk(size, 0))
+print(walk(size, 0, 0, 0))
