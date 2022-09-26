@@ -1,23 +1,23 @@
 from cmath import inf
 
-map = [list(line.rsplit()) for line in open("casos de teste/teste10.txt")]
+mapa = [list(linha.rsplit()) for linha in open("casos de teste/teste50.txt")]
 
-size = int(map[0][0])
+tamanho = int(mapa[0][0])
 
 movY, movX = [-1, -1, 0], [0, 1, 1]
-caminho = [["x" for x in range(size)] for y in range(size + 1)]
+caminho = [["x" for x in range(tamanho)] for y in range(tamanho + 1)]
 
-for y in range(1, size + 1):
-    for x in range(size - 1, -1, -1):
-        maxGold = []
-        if map[y][x] == "x":
+for y in range(1, tamanho + 1):
+    for x in range(tamanho - 1, -1, -1):
+        vizinhos = []
+        if mapa[y][x] == "x":
             continue
 
-        if y == 1 and x == size - 1:
-            caminho[y][x] = int(map[y][x])
+        if y == 1 and x == tamanho - 1:
+            caminho[y][x] = int(mapa[y][x])
         
         else:
-            casinhaAtual = int(map[y][x])
+            casinhaAtual = int(mapa[y][x])
             for i in range(3):
                 
                 newY = y + movY[i]
@@ -25,12 +25,13 @@ for y in range(1, size + 1):
                 try:
                     novaCasinha = caminho[newY][newX]
                     vizinho = casinhaAtual + int(novaCasinha)
-                    maxGold.append(vizinho)
+                    vizinhos.append(vizinho)
                 except:
-                    maxGold.append(-inf)
-            caminho[y][x] = max(maxGold)
+                    vizinhos.append(-inf)
+            caminho[y][x] = max(vizinhos)
             
-for line in caminho:
-    print(line)
+for linha in caminho:
+    print(linha)
     
-print(caminho[size][0])
+print("Resultado:", caminho[tamanho][0])
+

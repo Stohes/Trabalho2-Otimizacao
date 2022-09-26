@@ -1,16 +1,16 @@
 from cmath import inf
-map = [list(line.rsplit()) for line in open("casos de teste/teste50.txt")]
+mapa = [list(linha.rsplit()) for linha in open("casos de teste/teste10.txt")]
 
-size = int(map[0][0])
-start = map[size][0]
-end = map[1][size - 1]
+size = int(mapa[0][0])
+inicio = mapa[size][0]
+fim = mapa[1][size - 1]
 
 movY, movX = [-1, -1, 0], [0, 1, 1]
 
 casinhasVisitadas = {}
 def walk(y, x):
-    maxGold = []
-    if start == "x" or end == "x":
+    vizinhos = []
+    if inicio == "x" or fim == "x":
         return "Mapa inválido"
     
     if y < 1 or x > size - 1:
@@ -21,7 +21,7 @@ def walk(y, x):
         return casinhasVisitadas.get(coordenadasAtuais)
     
     else:
-        casinhaAtual = map[y][x]
+        casinhaAtual = mapa[y][x]
         if casinhaAtual == "x":
             return -inf
 
@@ -31,10 +31,10 @@ def walk(y, x):
         for i in range(3):
             newY = y + movY[i]
             newX = x + movX[i]
-            gold = int(casinhaAtual) + walk(newY, newX)
-            maxGold.append(gold)
-            casinhasVisitadas.update({coordenadasAtuais: max(maxGold)})
-        return max(maxGold)
+            ouro = int(casinhaAtual) + walk(newY, newX)
+            vizinhos.append(ouro)
+            casinhasVisitadas.update({coordenadasAtuais: max(vizinhos)})
+        return max(vizinhos)
     
 
-print(walk(size, 0))
+print("Resultado:", walk(size, 0))
