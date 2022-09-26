@@ -5,16 +5,20 @@ size = int(map[0][0])
 start = map[size][0]
 end = map[1][size - 1]
 
-movY, movX = [-1, -1, 0], [0, 1, 1]
+movY, movX, direction = [-1, -1, 0], [0, 1, 1], [" N", " NE", " E"]
 
-caminho = ""
+# caminhos = {}
 casinhasVisitadas = {}
 def walk(y, x):
     maxGold = []
+    # caminho = ""
+    if start == "x" or end == "x":
+        return "Mapa inválido"
+    
     if y < 1 or x > size - 1:
         return 0
 
-    coordenadasAtuais = f"{y}{x}"
+    coordenadasAtuais = f"{y} {x}"
     if coordenadasAtuais in casinhasVisitadas:
         return casinhasVisitadas.get(coordenadasAtuais)
     
@@ -32,10 +36,13 @@ def walk(y, x):
             gold = int(casinhaAtual) + walk(newY, newX)
             maxGold.append(gold)
             casinhasVisitadas.update({coordenadasAtuais: max(maxGold)})
+            # caminho += direction[i]
+            # caminhos.update({coordenadasAtuais: caminho})
         return max(maxGold)
+    
 
-
-start = time.time()
+startTime = time.time()
 print(walk(size, 0))
-end = time.time()
-print(end - start)
+# print(caminhos.get(f"{size} 0"))
+endTime = time.time()
+print(endTime - startTime)
