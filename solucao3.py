@@ -1,8 +1,14 @@
 from cmath import inf
+import sys
 
-mapa = [list(linha.rsplit()) for linha in open("casos de teste/teste1.txt")]
+mapa = [list(linha.rsplit()) for linha in open("casos de teste/teste10.txt")]
 
 tamanho = int(mapa[0][0])
+inicio = mapa[tamanho][0]
+fim = mapa[1][tamanho - 1]
+
+if inicio == "x" or fim == "x":
+    sys.exit("Mapa inválido")
 
 movY, movX = [-1, -1, 0], [0, 1, 1]
 resultados = [[-100000000 for x in range(tamanho)] for y in range(tamanho + 1)]
