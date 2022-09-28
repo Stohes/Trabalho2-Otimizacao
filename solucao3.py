@@ -1,7 +1,7 @@
 from cmath import inf
 import sys
 
-mapa = [list(linha.rsplit()) for linha in open("casos de teste/teste10.txt")]
+mapa = [list(linha.rsplit()) for linha in open("casos de teste/teste1.txt")]
 
 tamanho = int(mapa[0][0])
 inicio = mapa[tamanho][0]
@@ -21,11 +21,11 @@ for y in range(1, tamanho + 1):
 
         if y == 1 and x == tamanho - 1:
             resultados[y][x] = int(mapa[y][x])
-        
+
         else:
             casinhaAtual = int(mapa[y][x])
             for i in range(3):
-                
+
                 newY = y + movY[i]
                 newX = x + movX[i]
                 try:
@@ -35,32 +35,26 @@ for y in range(1, tamanho + 1):
                 except:
                     vizinhos.append(-inf)
             resultados[y][x] = max(vizinhos)
-      
+
 caminho = ""
 y = tamanho
 x = 0
 while True:
-    
+
     if y == 1 and x == tamanho - 1:
         break
-        
+
+    cima, diagonal, direita = -100000000, -100000000, -100000000
+
     try:
         cima = int(resultados[y - 1][x])
-    except:
-        cima = -100000000
-        
-    try:
         diagonal = int(resultados[y - 1][x + 1])
-    except:
-        diagonal = -100000000
-        
-    try:
         direita = int(resultados[y][x + 1])
     except:
-        direita = -100000000
-        
+        pass
+
     maiorVizinho = max(cima, diagonal, direita)
-    
+
     if maiorVizinho == cima:
         y -= 1
         caminho += "N "
@@ -71,15 +65,11 @@ while True:
     if maiorVizinho == direita:
         x += 1
         caminho += "E "
-        
-            
-            
-            
-            
+
+
 for linha in resultados:
     print(linha)
-    
+
 print("Ouro:", resultados[tamanho][0])
 
 print("Caminho:", caminho)
-
